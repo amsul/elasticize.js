@@ -1,40 +1,178 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>elasticize.js by amsul</title>
+<!DOCTYPE html>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<html lang="en">
+	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2">
+	<meta name="author" content="Amsul Naeem - http://amsul.ca">
+  <meta name="copyright" content="&copy; Amsul">
+  
+  <!--[if lt IE 9 ]>
+	  <meta http-equiv="X-UA-Compatible"	content="IE=edge,chrome=1" />
+	<![endif]-->
+	
+  <title>elasticize.js • dynamically resize textarea height</title>
+	
+	<link type="text/css" rel="stylesheet" href="demo.css">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>elasticize.js</h1>
-        <p>dynamic textarea height</p>
-        <p class="view"><a href="https://github.com/amsul/elasticize.js">View the Project on GitHub <small>amsul/elasticize.js</small></a></p>
-        <ul>
-          <li><a href="https://github.com/amsul/elasticize.js/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/amsul/elasticize.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/amsul/elasticize.js">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>elasticize.js</h1>
-      </section>
-    </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/amsul">amsul</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
-    
-  </body>
+	<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	
+	
+  <div id="T">
+
+
+  	<a href="https://github.com/amsul/elasticize.js"><img width="128" height="128" style="z-index:1000;position:fixed;top:0;right:0" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+  
+  	
+  	<header class="container" id="header">
+	  	<div class="row">
+	  		<h1>elasticize.js</h1>
+	  		<div class="subtitle">dynamically resize textarea height</div>
+	  		<div class="clear"></div>
+	  	</div>
+		</header>
+
+
+		<section class="container">
+
+			<div class="row">
+
+				<div class="sixcol">
+					<div class="colbox">
+
+
+						<!-- SOME DECLARATIONS ARE QUITE IMPORTANT -->
+
+						<style type="text/css">
+							textarea {
+								min-height: 32px;
+								height: 32px;
+								padding: 8px;
+								margin: 0;
+								border: 0;
+
+								-webkit-box-shadow: inset 0 0 0 1px #666;
+									 -moz-box-shadow: inset 0 0 0 1px #666;
+												box-shadow: inset 0 0 0 1px #666;
+
+								-webkit-box-sizing: border-box;
+									 -moz-box-sizing: border-box;
+												box-sizing: border-box;
+
+								-webkit-transition: height .05s linear;
+									 -moz-transition: height .05s linear;
+												transition: height .05s linear;
+							}
+						</style>
+
+
+						<form>
+
+							<fieldset>
+								<label for="t1">Here's a textbox</label><br>
+								<textarea id="t1"></textarea>
+							</fieldset>
+
+							<fieldset>
+								<label for="t2">...aaand another one</label><br>
+								<textarea id="t2"></textarea>
+							</fieldset>
+
+						</form>
+
+
+
+
+
+					</div> <!-- .colbox -->
+				</div>
+
+
+				<div class="sixcol">
+					<div class="colbox">
+
+						<p>A tiny (1kb) jQuery plugin to dynamically resize the height of a <code>&lt;textarea&gt;</code> field as you type.</p>
+						<p><code>border-width</code> has to be 0 to work right. You can create a fake border with <code>box-shadow</code> like in the demo to the left.</p>
+						<p>Works best with latest browsers.. <em>**probably not for everyone**</em></p>
+
+					</div> <!-- .colbox -->
+				</div>
+
+				<div class="clear"></div>
+			</div>
+
+
+
+		</section>
+
+
+		<hr>
+
+
+		<section class="container">
+			<div class="row">
+
+
+				<div class="sixcol">
+					<div class="colbox">
+
+						<h2>How to use</h2>
+						<pre><code>$('textarea').elasticize();</code></pre>
+
+					</div> <!-- .colbox -->
+				</div>
+
+
+				<div class="sixcol">
+					<div class="colbox">
+
+						<h2>Get it</h2>
+						<p><a href="https://github.com/amsul/elasticize.js/zipball/master">ZIP file</a> • <a href="https://github.com/amsul/elasticize.js/tarball/master">TAR Ball</a></p>
+
+					</div> <!-- .colbox -->
+				</div>
+
+
+				<div class="clear"></div>
+			</div>
+		</section>
+
+
+		<br><br><br>
+
+
+		<footer class="container" id="footer">
+			<div class="row">
+
+				<div class="colbox"><p>written by <a target="_blank" href="http://amsul.ca">amsul</a></p></div>
+				<br>
+				<a class="slash" href="http://wecodestuff.co" target="_blank" title="weCodeStuff : ninjas who code"></a>
+
+				<div class="clear"></div>
+			</div>
+		</footer>
+
+  	
+  </div> <!-- #T -->
+	
+	
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+	<script src="elasticize.js"></script>
+
+	<script type="text/javascript">
+
+		$('textarea').elasticize()
+
+	</script>
+
+	
 </html>
+
+
+
+
