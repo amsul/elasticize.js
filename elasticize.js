@@ -121,8 +121,13 @@
                     CACHE.CLONE_SCROLL_HEIGHT = Elastic._clone.scrollHeight
 
 
-                    // Place the wrapped clone in the dom
-                    Elastic.$textarea.after( Elastic.$clone.wrap( '<div style="height:0;overflow:hidden">' ).parent() )
+                    Elastic.$textarea.
+
+                        // Place the wrapped clone in the dom
+                        after( Elastic.$clone.wrap( '<div style="height:0;overflow:hidden">' ).parent() ).
+
+                        // Trigger a keydown on page load
+                        trigger( 'keydown' )
 
                     return E
                 }, //create
