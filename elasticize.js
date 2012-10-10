@@ -1,8 +1,8 @@
 /*!
-    elasticize.js v2.0
+    elasticize.js v2.0.1
     By Amsul (http://amsul.ca)
 
-    Updated: 07 October, 2012
+    Updated: 09 October, 2012
 
     (c) Amsul Naeem, 2012 - http://amsul.ca
     Licensed under MIT ("expat" flavour) license.
@@ -64,6 +64,7 @@
                     // Store as the min height
                     CACHE.MIN_HEIGHT = CACHE.HEIGHT
 
+
                     // Store the bottom padding
                     CACHE.PADDING_BOTTOM = Elastic.options.paddingBottom
 
@@ -79,9 +80,6 @@
                                                     boxSizing: 'border-box',
                                                     resize: 'none',
                                                     overflow: 'hidden',
-
-                                                    // Given alignment to stop from bouncing
-                                                    verticalAlign: 'top',
 
                                                     // Transition at speed given
                                                     transition: 'all ' + Elastic.options.transition + 's linear',
@@ -117,17 +115,20 @@
                     Elastic._clone  =   Elastic.$clone[ 0 ]
 
 
-                    // Store the initial clone scroll height
-                    CACHE.CLONE_SCROLL_HEIGHT = Elastic._clone.scrollHeight
-
-
                     Elastic.$textarea.
 
                         // Place the wrapped clone in the dom
-                        after( Elastic.$clone.wrap( '<div style="height:0;overflow:hidden">' ).parent() ).
+                        after( Elastic.$clone.wrap( '<div style="height:0;overflow:hidden">' ).parent() )
 
-                        // Trigger a keydown on page load
-                        trigger( 'keydown' )
+
+                    // Store the initial scroll height as min height
+                    CACHE.INITIAL_SCROLL_HEIGHT = CACHE.MIN_HEIGHT
+
+                    // Store the initial clone scroll height
+                    CACHE.CLONE_SCROLL_HEIGHT = Elastic._clone.scrollHeight
+
+                    // Trigger an update
+                    E.update()
 
                     return E
                 }, //create
@@ -157,7 +158,7 @@
                     if ( CACHE.CLONE_SCROLL_HEIGHT !== newScrollHeight ) {
 
 
-                        console.log( CACHE.CLONE_SCROLL_HEIGHT, newScrollHeight )
+                        console.log( CACHE.CLONE_SCROLL_HEIGHT, newScrollHeight, CACHE.HEIGHT, CACHE.MIN_HEIGHT )
 
 
                         // Set the new scroll height
@@ -177,6 +178,9 @@
 
                                                 // Otherwise set the height to min height
                                                 CACHE.MIN_HEIGHT
+
+
+                        console.log( CACHE.CLONE_SCROLL_HEIGHT, newScrollHeight, CACHE.HEIGHT, CACHE.MIN_HEIGHT )
 
 
                         // Apply the new height as min height

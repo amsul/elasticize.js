@@ -1,4 +1,4 @@
-# elasticize.js v2.0
+# elasticize.js v2.0.1
 
 A tiny jQuery plugin to dynamically resize the height of a <code>&lt;textarea&gt;</code> field as you type.
 
