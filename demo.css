@@ -4,7 +4,7 @@
  * Description:		Demo styling
  * Created on:		29/03/2012
  * Last Updated:	17 June, 2012
- * 
+ *
  * Based on HTML5 Boilerplate & 1140px Grid
  */
 
@@ -70,7 +70,7 @@ a:visited {
 }
 
 a:visited {
-	
+
 }
 
 a:focus {
@@ -201,7 +201,7 @@ dd {
 
 
 
-	
+
 /************************************************************************
 	Forms
 ************************************************************************/
@@ -323,7 +323,7 @@ td { vertical-align: top; }
 
 
 /************************************************************************
-	
+
 	Primary styling
 
 	All stylings goes after this point
@@ -436,7 +436,7 @@ textarea {
 	border: 1px solid #999;
 	padding: 5px;
 	width: 220px;
-	
+
 	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
 		 -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
 			-ms-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
@@ -456,7 +456,7 @@ input[type=password]:focus,
 input[type=email]:focus,
 textarea:focus {
 	border-color: #5a2;
-	
+
 	-webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.05), 0 0 4px 1px rgba(51, 163, 195, .3);
 		 -moz-box-shadow: inset 0 1px 3px rgba(0,0,0,.05), 0 0 4px 1px rgba(51, 163, 195, .3);
 			-ms-box-shadow: inset 0 1px 3px rgba(0,0,0,.05), 0 0 4px 1px rgba(51, 163, 195, .3);
@@ -490,7 +490,7 @@ input[type=submit]:hover,
 	border-color: #380;
 	border-bottom-color: #270;
 	text-decoration: none;
-	
+
 	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 		 -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 			-ms-box-shadow: 0 1px 3px rgba(0,0,0,0.2);
@@ -506,7 +506,7 @@ input[type=submit]:active,
 	border-color: #490;
 	border-top-color: #380;
 	text-decoration: none;
-	
+
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,90,0,0.2);
 		 -moz-box-shadow: inset 0 1px 1px rgba(0,90,0,0.2);
 			-ms-box-shadow: inset 0 1px 1px rgba(0,90,0,0.2);
@@ -533,7 +533,7 @@ input[type=submit].button-white:hover,
 .button-white:hover {
 	border-color: #ccc;
 	border-bottom-color: #bbb;
-	
+
 	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 		 -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 			-ms-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -548,7 +548,7 @@ input[type=submit].button-white:active,
 .button-white:active {
 	border-color: #ddd;
 	border-top-color: #d2d2d2;
-	
+
 	-webkit-box-shadow: inset 0 1px 1px rgba(80,80,80,0.1);
 		 -moz-box-shadow: inset 0 1px 1px rgba(80,80,80,0.1);
 			-ms-box-shadow: inset 0 1px 1px rgba(80,80,80,0.1);
@@ -625,68 +625,58 @@ input[type=submit].button-white:active,
 
 ************************************************************************/
 
+/************************************************************************
+	Grid -- twelve column
+************************************************************************/
 
+.container { padding: 0; }
 
-@media (min-width: 720px) {
-	
+.row {
+	width: 660px;
+	margin: 0 auto;
 
+	-webkit-transition: all .15s linear;
+		 -moz-transition: all .15s linear;
+			 -o-transition: all .15s linear;
+			-ms-transition: all .15s linear;
+					transition: all .15s linear;
+}
 
-	/************************************************************************
-		Grid -- twelve column
-	************************************************************************/
+.onecol,
+.twocol,
+.threecol,
+.fourcol,
+.fivecol,
+.sixcol,
+.sevencol,
+.eightcol,
+.ninecol,
+.tencol,
+.elevencol {
+	box-sizing: border-box;
+	float: left;
+	min-height: 1px;
 
-	.container { padding: 0; }
+	-webkit-transition: all .15s linear;
+		 -moz-transition: all .15s linear;
+			 -o-transition: all .15s linear;
+			-ms-transition: all .15s linear;
+					transition: all .15s linear;
+}
 
-	.row {
-		width: 660px;
-		margin: 0 auto;
+.onecol				{		width:		55px;		}
+.twocol				{		width:		110px;	}
+.threecol			{		width:		165px;	}
+.fourcol			{		width:		220px;	}
+.fivecol			{		width:		275px;	}
+.sixcol				{		width:		330px;	}
+.sevencol			{		width:		385px;	}
+.eightcol			{		width:		440px;	}
+.ninecol			{		width:		495px;	}
+.tencol				{		width:		550px;	}
+.elevencol		{		width:		605px;	}
 
-		-webkit-transition: all .15s linear;
-			 -moz-transition: all .15s linear;
-				 -o-transition: all .15s linear;
-				-ms-transition: all .15s linear;
-						transition: all .15s linear;
-	}
-
-	.onecol,
-	.twocol,
-	.threecol,
-	.fourcol,
-	.fivecol,
-	.sixcol,
-	.sevencol,
-	.eightcol,
-	.ninecol,
-	.tencol,
-	.elevencol {
-		box-sizing: border-box;
-		float: left;
-		min-height: 1px;
-		
-		-webkit-transition: all .15s linear;
-			 -moz-transition: all .15s linear;
-				 -o-transition: all .15s linear;
-				-ms-transition: all .15s linear;
-						transition: all .15s linear;
-	}
-
-	.onecol				{		width:		55px;		}
-	.twocol				{		width:		110px;	}
-	.threecol			{		width:		165px;	}
-	.fourcol			{		width:		220px;	}
-	.fivecol			{		width:		275px;	}
-	.sixcol				{		width:		330px;	}
-	.sevencol			{		width:		385px;	}
-	.eightcol			{		width:		440px;	}
-	.ninecol			{		width:		495px;	}
-	.tencol				{		width:		550px;	}
-	.elevencol		{		width:		605px;	}
-
-	.row .colbox { margin: 0 8px;	}
-
-	
-} /* >= 720px */
-
+.row .colbox { margin: 0 8px;	}
 
 
 
@@ -716,7 +706,7 @@ a.dimmed {
 	display: none;
 	visibility: hidden;
 }
-	
+
 .invisible {
 	visibility: hidden;
 }
