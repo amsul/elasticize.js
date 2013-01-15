@@ -1,281 +1,139 @@
 /*!
-    elasticize.js v2.0.1
-    By Amsul (http://amsul.ca)
-
-    Updated: 09 October, 2012
-
-    (c) Amsul Naeem, 2012 - http://amsul.ca
-    Licensed under MIT ("expat" flavour) license.
-    Hosted on http://github.com/amsul/elasticize.js
-*/
+ * elasticize.js v3.0 - 14 January, 2013
+ * By Amsul (http://amsul.ca)
+ * Hosted on https://github.com/amsul/elasticize.js
+ * Licensed under MIT ("expat" flavour) license.
+ */
 
 /*jshint
     debug: true,
     devel: true,
-    browser: true
+    browser: true,
+    asi: true,
+    unused: true,
+    eqnull: true
 */
 
 
-(function( $, window, document, undefined ) {
+(function( $ ) {
 
     'use strict';
 
+
     var
+
         /**
          *  Elasticize a `textarea` to grow/shrink
          *  as the user types
          */
-        Elasticize = function( textarea, options ) {
+        Elasticize = function( $textarea, options ) {
 
             var
-                // Caching object
-                CACHE = {},
+                // The heights to track
+                heightLatest = 0,
+                heightMinimum = 0,
+                heightCompensation = 0,
+                cloneScrollHeight = 0,
 
-                // The elastic constructor
-                Elastic = function() {},
+                // Create a reference to the actual node
+                textarea = $textarea.css( 'overflowY', 'scroll' )[ 0 ],
 
-                // The elastic prototype
-                E
+                // Create a clone and disable it
+                $clone = $textarea.clone().attr({
+                    tabindex: -1,
+                    disabled: true,
+                    name: ''
+                }),
 
+                // Merge the settings
+                settings = $.extend( {}, $.fn.elasticize.defaults, options ),
 
-            // Check if it is not a `textarea`
-            if ( textarea.type !== 'textarea' ) { return false }
+                // Update the clone value and textarea height
+                update = function() {
 
+                    // Copy the value over to the clone
+                    // with lines and characters padding
+                    $clone.val( textarea.value + Array( settings.charsPadding + 1 ).join( '_' ) + Array( settings.linesPadding + 1 ).join( '\n' ) )
 
-            //  Merge the options
-            Elastic.options = $.extend( {}, $.fn.elasticize.defaults, options )
+                    // Then measure the new scroll height with the compensation
+                    cloneScrollHeight = $clone[ 0 ].scrollHeight + heightCompensation
 
+                    // Compare it to the latest height
+                    if ( heightLatest != cloneScrollHeight ) {
 
-            // Create the prototype
-            E = Elastic.prototype = {
+                        // Update the latest height
+                        heightLatest = cloneScrollHeight
 
-                constructor: Elastic,
-
-
-                /**
-                 *  Create a new elastic textarea
-                 *  and clone
-                 */
-                create: function( textarea ) {
-
-                    // Store the initial height
-                    CACHE.HEIGHT = getPixelValue( textarea, 'height' )
-
-                    // Store as the min height
-                    CACHE.MIN_HEIGHT = CACHE.HEIGHT
-
-
-                    // Store the bottom padding
-                    CACHE.PADDING_BOTTOM = Elastic.options.paddingBottom
-
-
-                    // Create and store the textarea element
-                    Elastic._textarea   =   textarea
-
-                    // Create and store the jQuery textarea
-                    Elastic.$textarea   =   $( textarea ).
-
-                                                // Apply the default styling
-                                                css({
-                                                    boxSizing: 'border-box',
-                                                    resize: 'none',
-                                                    overflow: 'hidden',
-
-                                                    // Transition at speed given
-                                                    transition: 'all ' + Elastic.options.transition + 's linear',
-
-                                                    // Set the initial min height
-                                                    minHeight: CACHE.MIN_HEIGHT + 'px'
-                                                }).
-
-                                                // Bind the events
-                                                on({
-                                                    'keydown keyup change cut': E.onChange,
-                                                    'input paste': E.onPaste,
-                                                    focusin: E.onFocus,
-                                                    focusout: E.onBlur
-                                                })
-
-
-                    // Create and store a jQuery clone
-                    Elastic.$clone  =   Elastic.$textarea.clone().
-
-                                            // Apply the default styling
-                                            css({
-                                                height: 0
-                                            }).
-
-                                            // Bind the default state
-                                            attr({
-                                                tabindex: -1,
-                                                disabled: true
-                                            })
-
-                    // Create and store the clone element
-                    Elastic._clone  =   Elastic.$clone[ 0 ]
-
-
-                    Elastic.$textarea.
-
-                        // Place the wrapped clone in the dom
-                        after( Elastic.$clone.wrap( '<div style="height:0;overflow:hidden">' ).parent() )
-
-
-                    // Store the initial scroll height as min height
-                    CACHE.INITIAL_SCROLL_HEIGHT = CACHE.MIN_HEIGHT
-
-                    // Store the initial clone scroll height
-                    CACHE.CLONE_SCROLL_HEIGHT = Elastic._clone.scrollHeight
-
-                    // Trigger an update
-                    E.update()
-
-                    return E
-                }, //create
-
-
-                /**
-                 *  Update the `textarea` and clone values
-                 */
-                update: function() {
-
-                    var
-                        newScrollHeight,
-                        clone = Elastic._clone,
-                        textarea = Elastic._textarea
-
-
-                    // Mirror over the value to the clone
-                    clone.value = textarea.value
-
-
-                    // Calculate the new scroll height
-                    newScrollHeight = clone.scrollHeight + CACHE.PADDING_BOTTOM
-
-
-                    // Compare the new scroll height to
-                    // previous scroll height
-                    if ( CACHE.CLONE_SCROLL_HEIGHT !== newScrollHeight ) {
-
-
-                        console.log( CACHE.CLONE_SCROLL_HEIGHT, newScrollHeight, CACHE.HEIGHT, CACHE.MIN_HEIGHT )
-
-
-                        // Set the new scroll height
-                        CACHE.CLONE_SCROLL_HEIGHT = newScrollHeight
-
-
-                        // Set the new height based on
-                        // if the new scroll height is
-                        // greater than the minimum height
-                        CACHE.HEIGHT    =   ( CACHE.CLONE_SCROLL_HEIGHT > CACHE.MIN_HEIGHT ) ?
-
-                                                // Set the height based on
-                                                // original min height plus
-                                                // the difference between
-                                                // the clone scroll and offset
-                                                CACHE.MIN_HEIGHT + ( clone.scrollHeight - clone.clientHeight ) :
-
-                                                // Otherwise set the height to min height
-                                                CACHE.MIN_HEIGHT
-
-
-                        console.log( CACHE.CLONE_SCROLL_HEIGHT, newScrollHeight, CACHE.HEIGHT, CACHE.MIN_HEIGHT )
-
-
-                        // Apply the new height as min height
-                        textarea.style.minHeight = CACHE.HEIGHT + 'px'
+                        // Set the textarea height
+                        $textarea.outerHeight( cloneScrollHeight + 'px' )
                     }
+                },
 
-                    return E
-                }, //update
+                // On a paste event, wait a tick then update the clone
+                tickUpdate = function() {
+                    setTimeout( update, 0 )
+                },
 
+                // Elastic contrusctor
+                ElasticArea = function() {
 
-                /**
-                 *  Expand `textarea` on focusin
-                 */
-                expand: function() {
+                    // On the jQuery object of the textarea
+                    $textarea.
 
-                    // Increase the min height allowed
-                    CACHE.MIN_HEIGHT += CACHE.PADDING_BOTTOM
+                        // Apply the default styling
+                        css({
 
-                    // Expand the clone scroll height
-                    CACHE.CLONE_SCROLL_HEIGHT += CACHE.PADDING_BOTTOM
+                            // Prevent manual resizing
+                            resize: 'none',
 
-                    // Trigger an update
-                    E.update()
+                            // Transition at speed given
+                            transition: 'height ' + settings.transition + 's linear'
+                        }).
 
-                    return E
-                }, //expand
+                        // Bind the events
+                        on({
+                            'keydown keyup change cut': update,
+                            'input paste': tickUpdate
+                        }).
 
-
-                /**
-                 *  Shrink `textarea` on focusout
-                 */
-                shrink: function() {
-
-                    // Decrease the min height allowed
-                    CACHE.MIN_HEIGHT -= CACHE.PADDING_BOTTOM
-
-                    // Shrink the clone scroll height
-                    CACHE.CLONE_SCROLL_HEIGHT -= CACHE.PADDING_BOTTOM
-
-                    // Trigger an update
-                    E.update()
-
-                    return E
-                }, //shrink
+                        // Put the wrapped clone in the DOM
+                        after( $clone.wrap( '<div style="heightttt:0;overflow:hidden">' ).parent() )
 
 
-                /**
-                 *  Expand on focus
-                 */
-                onFocus: function( event ) {
-
-                    E.expand()
-
-                    return this
-                }, //onFocus
+                    // Calculate the clone's height without a value
+                    heightMinimum = $clone.val( '' ).outerHeight()
 
 
-                /**
-                 *  Shrink on blur
-                 */
-                onBlur: function( event ) {
-
-                    E.shrink()
-
-                    return this
-                }, //onFocus
+                    // Get the height compensation between the scroll height
+                    // without a value and the minimum height
+                    heightCompensation = Math.abs( $clone[ 0 ].scrollHeight - heightMinimum )
 
 
-                /**
-                 *  Update a value on change
-                 */
-                onChange: function( event ) {
-
-                    E.update()
-
-                    return this
-                }, //onChange
+                    // Store the latest height with the compensation
+                    heightLatest = heightMinimum + heightCompensation
 
 
-                /**
-                 *  Update a value on paste
-                 */
-                onPaste: function( event ) {
-
-                    // Wait a tick
-                    setTimeout( E.update, 0 )
-
-                    return this
-                } //onPaste
-
-            } // Elastic.prototype
+                    // Set the clone's height as the minimum height
+                    $clone.css({
+                        height: heightMinimum + 'px'
+                    })
 
 
-            return new Elastic().create( textarea )
+                    // Trigger an update after a tick
+                    tickUpdate()
+
+
+                    // Return the api
+                    return {
+                        update: update
+                    }
+                } //ElasticArea
+
+
+            // Return a new elastic area
+            return new ElasticArea()
         } //Elasticize
+
 
 
 
@@ -284,34 +142,24 @@
      */
     $.fn.elasticize = function ( options ) {
         return this.each( function() {
-            if ( !$.data( this, 'elasticized' ) ) {
-                $.data( this, 'elasticized', new Elasticize( this, options ) )
+            var $this = $( this )
+            if ( this.type == 'textarea' && !$this.data( 'elasticized' ) ) {
+                $this.data( 'elasticized', new Elasticize( $this, options ) )
             }
             return this
         })
     }
 
+
     /**
      *  Set the defaults
      */
     $.fn.elasticize.defaults = {
-        paddingBottom: 20,
+        charsPadding: 10,
+        linesPadding: 1,
         transition: 0.15
     }
 
 
 
-    /**
-     *  Helper function to get pixel value of a property
-     */
-    function getPixelValue( element, property ) {
-        return parseInt( getComputedStyle( element, null ).getPropertyValue( property ), 10 )
-    }
-
-
-
-})( jQuery, window, document )
-
-
-
-
+})( jQuery );
