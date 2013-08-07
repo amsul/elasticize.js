@@ -1,10 +1,4 @@
 /*
- * Author:				Amsul
- * Author URI:		http://amsul.ca
- * Description:		Demo styling
- * Created on:		29/03/2012
- * Last Updated:	17 June, 2012
- *
  * Based on HTML5 Boilerplate & 1140px Grid
  */
 
@@ -588,9 +582,7 @@ input[type=submit].button-white:active,
 	text-align: center;
 	color: #666;
 	font-size: 11px;
-	background: #333;
 	margin-top: 88px;
-	min-height: 128px;
 	padding: 12px 0 42px;
 }
 #footer a {

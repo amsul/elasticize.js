@@ -1,5 +1,5 @@
 /*!
- * elasticize.js v3.0 - 14 January, 2013
+ * elasticize.js v2.5.0 - 07 August, 2013
  * By Amsul (http://amsul.ca)
  * Hosted on https://github.com/amsul/elasticize.js
  * Licensed under MIT ("expat" flavour) license.
@@ -74,7 +74,7 @@
                     setTimeout( update, 0 )
                 },
 
-                // Elastic contrusctor
+                // Elastic constructor
                 ElasticArea = function() {
 
                     // On the jQuery object of the textarea
@@ -97,7 +97,7 @@
                         }).
 
                         // Put the wrapped clone in the DOM
-                        after( $clone.wrap( '<div style="heightttt:0;overflow:hidden">' ).parent() )
+                        after( $clone.wrap( '<div style="height:0;overflow:hidden">' ).parent() )
 
 
                     // Calculate the clone's height without a value
