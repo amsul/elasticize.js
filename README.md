@@ -4,3 +4,12 @@ A tiny (1.1kb) jQuery plugin to dynamically resize the height of a <code>&lt;tex
 
 Works with all major browsers: Chrome, Firefox 3.5+, Safari, IE 8+, Opera 10.5+, iOS 3.2+, Android browser 2.1+
 
+
+
+<br><br>
+
+---
+
+© 2013 [Amsul](http://twitter.com/amsul_)
+
+Licensed under [MIT](http://amsul.ca/MIT)
